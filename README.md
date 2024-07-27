@@ -1,21 +1,6 @@
-- 👋 Hi, I’m @abhiTriac
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
-
-<!---
-abhiTriac/abhiTriac is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
-
-
 import React, { useState } from 'react';
-import MUIDataTable from "mui-datatables";
-import { makeStyles } from '@material-ui/core/styles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import MUIDataTable from 'mui-datatables';
+import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   toolbarActions: {
@@ -43,41 +28,46 @@ const CustomerTable = () => {
   const classes = useStyles();
   const [showAddCusSet, setShowAddCusSet] = useState(false);
 
-  const theme = createMuiTheme({
-    overrides: {
-      MUIDataTableToolbar: {
-        actions: {
-          // Applying the custom styles using a class name
-          '& .MuiButton-root': classes.toolbarActions,
+  const theme = createTheme({
+    components: {
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: '0.5rem',
+          },
         },
       },
     },
   });
 
   const options = {
-    filterType: "none",
-    selectableRows: "none",
+    filterType: 'none',
+    selectableRows: 'none',
     print: false,
     download: false,
     customToolbar: () => {
-      return (
-        <CustomToolbar showAddCusSet={setShowAddCusSet} />
-      );
+      return <CustomToolbar showAddCusSet={setShowAddCusSet} />;
     },
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <MUIDataTable
-        title={<div style={{ display: "flex", fontSize: '14px', fontWeight: "600", color: '#1C1C1C' }}>Customer List</div>}
+        title={
+          <div style={{ display: 'flex', fontSize: '14px', fontWeight: '600', color: '#1C1C1C' }}>
+            Customer List
+          </div>
+        }
         data={accounts}
         columns={columns}
         className={classes.tableHeader}
         options={options}
       />
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 
 export default CustomerTable;
-
