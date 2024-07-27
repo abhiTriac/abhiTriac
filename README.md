@@ -12,31 +12,10 @@ You can click the Preview link to take a look at your changes.
 --->
 
 
-
- const CustomToolbar = (props) => {
-    return (
-      <>
-        <button className="add-button" onClick={() => { showAddCusSet(true) }}>Add New</button>
-        
-      </>
-    );
-  };
-    const options = {
-    filterType: "none",
-    selectableRows: "none",
-    print: false,
-    download: false,
-    customToolbar: () => {
-      return (
-        <CustomToolbar />
-      );
-    },
-  };
-   <MUIDataTable
-            title={<div style={{ display: "flex", fontSize: '14px', fontWeight: "600", color: '#1C1C1C' }}>Customer List</div>}
-            data={accounts}
-            columns={columns}
-            className={classes.tableHeader}
-            options={options}
-          />
+.MUIDataTableToolbar-actions-56{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5rem;
+}
   
