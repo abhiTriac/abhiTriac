@@ -1,47 +1,20 @@
 import React, { useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { GlobalStyles } from '@mui/system';
 
-const useStyles = makeStyles((theme) => ({
-  toolbarActions: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: '0.5rem',
-    width: '100%',
-  },
-  addButton: {
-    marginLeft: 'auto',
-  },
-}));
+const theme = createTheme();
 
 const CustomToolbar = ({ showAddCusSet }) => {
-  const classes = useStyles();
   return (
-    <div className={classes.toolbarActions}>
-      <button className={classes.addButton} onClick={() => showAddCusSet(true)}>Add New</button>
-    </div>
+    <button className="add-button" onClick={() => showAddCusSet(true)}>
+      Add New
+    </button>
   );
 };
 
 const CustomerTable = () => {
-  const classes = useStyles();
   const [showAddCusSet, setShowAddCusSet] = useState(false);
-
-  const theme = createTheme({
-    components: {
-      MuiToolbar: {
-        styleOverrides: {
-          root: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: '0.5rem',
-          },
-        },
-      },
-    },
-  });
 
   const options = {
     filterType: 'none',
@@ -55,6 +28,19 @@ const CustomerTable = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{
+          '[class*="MUIDataTableToolbar-actions-"]': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: '0.5rem',
+          },
+          '.add-button': {
+            marginLeft: 'auto',
+          },
+        }}
+      />
       <MUIDataTable
         title={
           <div style={{ display: 'flex', fontSize: '14px', fontWeight: '600', color: '#1C1C1C' }}>
@@ -63,7 +49,6 @@ const CustomerTable = () => {
         }
         data={accounts}
         columns={columns}
-        className={classes.tableHeader}
         options={options}
       />
     </ThemeProvider>
