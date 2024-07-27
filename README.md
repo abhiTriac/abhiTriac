@@ -1,58 +1,15 @@
-import React, { useState } from 'react';
-import MUIDataTable from 'mui-datatables';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { GlobalStyles } from '@mui/system';
+.MuiChip-root {
+  width: 11.25rem;
+  background-color: #ffffff !important;
+  border: 1px solid #004b98 !important;
+  margin-bottom: 1rem !important;
+}
 
-const theme = createTheme();
+.MuiChip-deleteIcon {
+  position: relative;
+  bottom: 1rem;
+  left: 3.8rem;
+  color: #004b98 !important;
 
-const CustomToolbar = ({ showAddCusSet }) => {
-  return (
-    <button className="add-button" onClick={() => showAddCusSet(true)}>
-      Add New
-    </button>
-  );
-};
-
-const CustomerTable = () => {
-  const [showAddCusSet, setShowAddCusSet] = useState(false);
-
-  const options = {
-    filterType: 'none',
-    selectableRows: 'none',
-    print: false,
-    download: false,
-    customToolbar: () => {
-      return <CustomToolbar showAddCusSet={setShowAddCusSet} />;
-    },
-  };
-
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles
-        styles={{
-          '[class*="MUIDataTableToolbar-actions-"]': {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: '0.5rem',
-          },
-          '.add-button': {
-            marginLeft: 'auto',
-          },
-        }}
-      />
-      <MUIDataTable
-        title={
-          <div style={{ display: 'flex', fontSize: '14px', fontWeight: '600', color: '#1C1C1C' }}>
-            Customer List
-          </div>
-        }
-        data={accounts}
-        columns={columns}
-        options={options}
-      />
-    </ThemeProvider>
-  );
-};
-
-export default CustomerTable;
+  /* background-color:#004b98 ; */
+}
