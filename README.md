@@ -12,10 +12,18 @@ You can click the Preview link to take a look at your changes.
 --->
 
 
-.MUIDataTableToolbar-actions-56{
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  gap: 0.5rem;
-}
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: '0.5rem',
+    width: '100%',
+  },
+  addButton: {
+    marginLeft: 'auto',
+  },
+
   
+    <div className={classes.toolbar}>
+      <button className={classes.addButton} onClick={() => showAddCusSet(true)}>Add New</button>
+    </div>
