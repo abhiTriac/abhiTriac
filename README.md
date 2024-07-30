@@ -1,8 +1,29 @@
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const year = String(date.getFullYear()).slice(-2); // Get last two digits of the year
-
-  return `${day}/${month}/${year}`;
-};
+branch_id: 
+1
+days_until_insurance_expiry
+: 
+14
+days_until_labour_contract_expiry
+: 
+null
+days_until_national_id_expiry
+: 
+null
+days_until_visa_expiry
+: 
+null
+employee_name
+: 
+"Jon Snow"
+insurance_expiry
+: 
+"2024-08-13T18:30:00.000Z"
+labour_contract_expiry
+: 
+"2024-07-03T18:30:00.000Z"
+national_id_expiry
+: 
+"2024-07-30T11:30:06.242Z"
+visa_expiry
+: 
+"2024-07-30T11:30:06.242Z"
