@@ -53,3 +53,20 @@ console.log(filteredMenuData);
     return false;
   }
 };
+const filteredMenuData = menuData
+  .map((item) => {
+    if (item.children) {
+      const filteredChildren = item.children.filter((child) => isAllowed(child.key));
+      if (filteredChildren.length > 0) {
+        return {
+          ...item,
+          children: filteredChildren,
+        };
+      }
+      return null;
+    } else if (isAllowed(item.key)) {
+      return item;
+    }
+    return null;
+  })
+  .filter(Boolean);
