@@ -1,32 +1,42 @@
-
-[0 … 99]
 0
 : 
-{access: 'sales_entry', access_type: 'WRITE'}
+{tab: 'sales'}
 1
 : 
-{access: 'pos_entry', access_type: 'WRITE'}
+{tab: 'pos'}
 2
 : 
-{access: 'customer_entry', access_type: 'WRITE'}
+{tab: 'reports'}
 3
 : 
-{access: 'sales_record', access_type: 'WRITE'}
+{tab: 'order'}
 4
 : 
-{access: 'sales_voucher', access_type: 'WRITE'}
+{tab: 'service'}
 5
 : 
-{access: 'sales_return_voucher', access_type: 'WRITE'}
+{tab: 'purchase'}
 6
 : 
-{access: 'sales_return', access_type: 'WRITE'}
+{tab: 'hrpayroll'}
 7
 : 
-{access: 'product_replace', access_type: 'WRITE'}
+{tab: 'accounts'}
 8
 : 
-{access: 'sales_return_record', access_type: 'WRITE'}
+{tab: 'inventory'}
 9
 : 
-{access: 'product_replace_record', access_type: 'WRITE'}
+{tab: 'manufacturing'}
+10
+: 
+{tab: 'crm'}
+11
+: 
+{tab: 'quotation'}
+12
+: 
+{tab: null}
+13
+: 
+{tab: 'settings'}
