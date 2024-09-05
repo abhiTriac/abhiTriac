@@ -1,58 +1,64 @@
- {customize_tab.map((item, index) => (
-                                <div style={{ display: 'flex', gap: "0.5rem", justifyContent: "space-between" }} key={index}>
-                                    <div style={{ display: "flex" }}>
-                                        <input
-                                            type="checkbox"
-                                            // checked={!!checked_item[item.value]}
-                                            onChange={() => handleCheckBoxChange(item.value)
-                                            }
-                                        />
-                                        <label className="form-label">
-                                            {" "}
-                                            {item.label}
+ const [selectedRoles, setSelectedRoles] = useState({});
+    // State to hold checked items
+    const [checkedItems, setCheckedItems] = useState({});
 
-                                        </label>
-                                    </div>
-                                    <div >
-                                        <Select
-                                            className="crm-dropdown"
-                                            style={{ width: '100%' }}
-                                            defaultValue="Read"
-                                            value={selected_role}
-                                            onChange={handleRoleChange}
-                                            options={roleAccessOptions} />
-                                    </div>
-                                </div>
-                            ))}
- let [checked_item, checked_item_set] = useState({})
-    let [selected_role, selected__role_set] = useState(roleAccessOptions[0])
+    // Handle checkbox change
+    const handleCheckBoxChange = (itemValue) => {
+        setCheckedItems(prev => ({
+            ...prev,
+            [itemValue]: !prev[itemValue]
+        }));
+    };
 
-    const customizeSettings = (item) => {
-        console.log('item', item);
-        user_customize_modal_set(true)
-        customize_title_set(item.label)
-        customize_tab_set(accessTabs(item.value))
-        console.log("tab", customize_tab);
-    }
-    // handle check box change
-    const handleCheckBoxChange = (value) => {
-        checked_item_set(prevState => ({
-            ...prevState,
-            [value]: !prevState[value]
-        }))
-    }
+    // Handle role change
+    const handleRoleChange = (itemValue, newValue) => {
+        setSelectedRoles(prev => ({
+            ...prev,
+            [itemValue]: newValue
+        }));
+    };
 
-    const handleRoleChange = (value) => {
-        selected__role_set(value)
-    }
+    // Generate the final output array
+    const getOutputArray = () => {
+        return customize_tab
+            .filter(item => checkedItems[item.value])
+            .map(item => ({
+                value: item.value,
+                access: selectedRoles[item.value] || 'read' // Default to "read" if no role selected
+            }));
+    };
 
-    const roleCombineData = () => {
-        return Object.keys(checkedItems).filter(key =>
-            checked_item[key]).map(value =>
-                ({ value, access: selected_role.value }))
-    }
+    return (
+        <div>
+            {customize_tab.map((item, index) => (
+                <div style={{ display: 'flex', gap: "0.5rem", justifyContent: "space-between" }} key={index}>
+                    <div style={{ display: "flex" }}>
+                        <input
+                            type="checkbox"
+                            checked={!!checkedItems[item.value]}
+                            onChange={() => handleCheckBoxChange(item.value)}
+                        />
+                        <label className="form-label">
+                            {item.label}
+                        </label>
+                    </div>
+                    <div>
+                        <Select
+                            className="crm-dropdown"
+                            style={{ width: '100%' }}
+                            defaultValue="read"
+                            value={selectedRoles[item.value] || "read"}
+                            onChange={(value) => handleRoleChange(item.value, value)}
+                            options={roleAccessOptions}
+                        />
+                    </div>
+                </div>
+            ))}
 
-    const handleCustomSettingChange = () => {
-        const data = roleCombineData
-        console.log("data", data);
-    }
+            {/* This button or function can be used to get the output array */}
+            <button onClick={() => console.log(getOutputArray())}>
+                Get Output Array
+            </button>
+        </div>
+    );
+};
