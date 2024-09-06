@@ -1,27 +1,59 @@
-app.post('/save-or-update-output', (req, res) => {
-    const outputArray = req.body;
+router.post(`/api/save-role-access`, async (req, res, next) => {
 
-    // Check if the array is valid
-    if (!Array.isArray(outputArray) || outputArray.length === 0) {
-        return res.status(400).json({ message: 'Invalid input array' });
+  let transaction;
+  try {
+    console.log("try");
+    transaction = await Tran.sequelize.transaction();
+    console.log("access");
+    let payLoad = req.body;
+    let roles = payLoad.data
+    console.log('roles', roles);
+    for (const role of roles) {
+      const countingQuery = `
+        SELECT * FROM tbl_role_access
+        WHERE institution_id = :institution_id
+        AND role_id = :role_id
+        AND access = :access
+      `;
+
+      const counting = await Tran.sequelize.query(countingQuery, {
+        replacements: {
+          institution_id: payLoad.institution_id,
+          role_id: payLoad.role_id,
+          access: role.value,
+        },
+        type: Tran.sequelize.QueryTypes.SELECT,
+        transaction,
+      });
+      const newRecord = {
+        institution_id: payLoad.institution_id,
+        role_id: payLoad.role_id,
+        access: role.value,
+        access_type: role.access,
+        tab: role.tab,
+      };
+      if (counting.length == 0) {
+        await Tran.create("tbl_role_access", newRecord, transaction);
+      } else {
+        const updateQuery = `
+        UPDATE tbl_role_access
+        SET access_type = :access_type ,
+         tab = :tab
+        WHERE access = :access
+        AND institution_id = :institution_id
+        AND role_id = :role_id
+      `;
+
+        await Tran.sequelize.query(updateQuery, {
+          replacements: newRecord,
+          transaction,
+        });
+      }
     }
+    await transaction.commit();
+    res.json({ message: `Successfully Done.. ` });
+  }
+  catch (err) {
 
-    // SQL query for insert or update
-    const sqlQuery = `
-        INSERT INTO role_access (tab, access) 
-        VALUES ? 
-        ON DUPLICATE KEY UPDATE 
-        access = VALUES(access)
-    `;
-
-    const values = outputArray.map(item => [item.tab, item.access]);
-
-    db.query(sqlQuery, [values], (error, results) => {
-        if (error) {
-            console.error('Error inserting/updating data:', error);
-            return res.status(500).json({ message: 'Error saving or updating data' });
-        }
-
-        return res.status(200).json({ message: 'Data saved/updated successfully', data: results });
-    });
-});
+  }
+})
