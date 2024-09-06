@@ -1,9 +1,9 @@
-router.post('/api/save-role-access', async (req, res, next) => {
-  let transaction;
-  try {
-    // Start transaction if needed
-    transaction = await db.sequelize.transaction(); // Adjust to your transaction method
+const express = require('express');
+const router = express.Router();
+const db = require('./database'); // Adjust the path as necessary
 
+router.post('/api/save-role-access', async (req, res) => {
+  try {
     const { data: roles, institution_id, role_id } = req.body;
 
     if (!Array.isArray(roles) || roles.length === 0) {
@@ -17,8 +17,7 @@ router.post('/api/save-role-access', async (req, res, next) => {
          WHERE institution_id = ? AND role_id = ? AND access = ?`,
         {
           replacements: [institution_id, role_id, role.value],
-          type: db.QueryTypes.SELECT,
-          transaction,
+          type: db.QueryTypes.SELECT
         }
       );
 
@@ -29,8 +28,7 @@ router.post('/api/save-role-access', async (req, res, next) => {
            SET access_type = ?, tab = ?
            WHERE role_id = ? AND access = ? AND institution_id = ?`,
           {
-            replacements: [role.access, role.tab, role_id, role.value, institution_id],
-            transaction,
+            replacements: [role.access, role.tab, role_id, role.value, institution_id]
           }
         );
       } else {
@@ -39,21 +37,18 @@ router.post('/api/save-role-access', async (req, res, next) => {
           `INSERT INTO tbl_role_access (role_id, access, access_type, institution_id, tab)
            VALUES (?, ?, ?, ?, ?)`,
           {
-            replacements: [role_id, role.value, role.access, institution_id, role.tab],
-            transaction,
+            replacements: [role_id, role.value, role.access, institution_id, role.tab]
           }
         );
       }
     }
 
-    // Commit transaction
-    await transaction.commit();
     res.json({ message: 'Successfully Done!' });
 
   } catch (err) {
-    // Rollback transaction in case of error
-    if (transaction) await transaction.rollback();
     console.error('Error:', err);
     res.status(500).json({ error: 'An error occurred while processing the request.' });
   }
 });
+
+module.exports = router;
