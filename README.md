@@ -1,42 +1,43 @@
-0
+{
+accounts
 : 
-{tab: 'sales'}
-1
+false
+crm
 : 
-{tab: 'pos'}
-2
+false
+dashboard
 : 
-{tab: 'reports'}
-3
+false
+hrpayroll
 : 
-{tab: 'order'}
-4
+false
+inventry
 : 
-{tab: 'service'}
-5
+false
+manufacturing
 : 
-{tab: 'purchase'}
-6
+true
+order
 : 
-{tab: 'hrpayroll'}
-7
+false
+pos
 : 
-{tab: 'accounts'}
-8
+false
+purchase
 : 
-{tab: 'inventory'}
-9
+true
+quotation
 : 
-{tab: 'manufacturing'}
-10
+false
+reports
 : 
-{tab: 'crm'}
-11
+false
+sales
 : 
-{tab: 'quotation'}
-12
+false
+service
 : 
-{tab: null}
-13
+false
+settings
 : 
-{tab: 'settings'}
+false}
