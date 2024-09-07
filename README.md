@@ -1,54 +1,39 @@
-const express = require('express');
-const router = express.Router();
-const db = require('./database'); // Adjust the path as necessary
+router.post("/saveOrUpdateRoleAccess", async (req, res) => {
+  const body = {
+    role_id: 1,
+    institution: 1,
+    data: [
+      { value: "sales", access: "read", tab: "sale" },
+      { value: "sales_entry", access: "write", tab: "sale" },
+      { value: "pos", access: "write", tab: "pos" },
+      { value: "purchae", access: "write", tab: "order" },
+    ],
+  };
+  const { role_id, institution, data } = body;
 
-router.post('/api/save-role-access', async (req, res) => {
+  if (!role_id || !institution || !Array.isArray(data)) {
+    return res.status(400).json({ message: "Invalid request data" });
+  }
+
+  const sql = `INSERT INTO row_access (role_id, institution_id, access, access_type, tab) 
+               VALUES (?, ?, ?, ?, ?)
+               ON DUPLICATE KEY UPDATE 
+               access_type = VALUES(access_type), tab = VALUES(tab)`;
+
   try {
-    const { data: roles, institution_id, role_id } = req.body;
+    // Iterate over the data array to insert or update each record
+    for (let i = 0; i < data.length; i++) {
+      const { value, access, tab } = data[i];
 
-    if (!Array.isArray(roles) || roles.length === 0) {
-      return res.status(400).json({ message: 'Invalid input array' });
+      // Execute the SQL query with prepared statement to insert or update
+      await db.query(sql, [role_id, institution, value, access, tab]);
     }
 
-    for (const role of roles) {
-      // Check if record exists
-      const [rows] = await db.query(
-        `SELECT id FROM tbl_role_access
-         WHERE institution_id = ? AND role_id = ? AND access = ?`,
-        {
-          replacements: [institution_id, role_id, role.value],
-          type: db.QueryTypes.SELECT
-        }
-      );
-
-      if (rows.length > 0) {
-        // Update existing record
-        await db.query(
-          `UPDATE tbl_role_access
-           SET access_type = ?, tab = ?
-           WHERE role_id = ? AND access = ? AND institution_id = ?`,
-          {
-            replacements: [role.access, role.tab, role_id, role.value, institution_id]
-          }
-        );
-      } else {
-        // Insert new record
-        await db.query(
-          `INSERT INTO tbl_role_access (role_id, access, access_type, institution_id, tab)
-           VALUES (?, ?, ?, ?, ?)`,
-          {
-            replacements: [role_id, role.value, role.access, institution_id, role.tab]
-          }
-        );
-      }
-    }
-
-    res.json({ message: 'Successfully Done!' });
-
-  } catch (err) {
-    console.error('Error:', err);
-    res.status(500).json({ error: 'An error occurred while processing the request.' });
+    return res
+      .status(200)
+      .json({ message: "Role access saved or updated successfully!" });
+  } catch (error) {
+    console.error("Error saving or updating role access:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-module.exports = router;
