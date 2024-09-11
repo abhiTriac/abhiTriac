@@ -1,5 +1,55 @@
-SSL_CRT_FILE=/ets/letsencrypt/live/forthdev.triacitsolutions.com/fullchain.pem
-SSL_KEY_FILE=/ets/letsencrypt/live/forthdev.triacitsolutions.com/privkey.pem
-HTTPS=false
-REACT_APP_API_HOSTNAME=localhost
-REACT_APP_API_BACKEND_PORT=1000
+router.post("/api/save-role-access", async (req, res) => {
+  const { role_id, institution_id, data } = req.body;
+  if (!role_id || !institution_id || !Array.isArray(data)) {
+    return res.status(400).json({ message: "Invalid request data" });
+  }
+
+
+  console.log('data', data, role_id, institution_id);
+
+  try {
+    // Iterate over the data array to insert or update each record
+    for (item of data) {
+      let obj = {
+        role_id: role_id,
+        institution_id: institution_id,
+        access: item.value,
+        access_type: item.access,
+        tab: item.tab
+      }
+      let [existErr, exist] = await _p(
+        db.countRows(
+          `select * from tbl_role_access
+          where role_id =? and institution_id=? and access =? `,
+          [role_id, institution_id, obj.access]
+        )
+      ).then((res) => {
+        console.log('res', res);
+        return res
+      });
+
+      if (exist > 0) {
+        let [saveErr, save] = await _p(
+          db.update("tbl_role_access", obj, { role_id })
+        ).then((res) => {
+          return res;
+        });
+        console.log('save', save);
+      } else {
+        let [saveErr, save] = await _p(
+          db.insert("tbl_role_access", obj)
+        ).then((res) => {
+          return res;
+        });
+        console.log('save', save);
+      }
+    }
+
+    return res
+      .status(200)
+
+  } catch (error) {
+    console.error("Error saving role access:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
