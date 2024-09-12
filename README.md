@@ -1,106 +1,70 @@
- const [selectedRoles, setSelectedRoles] = useState({});
-    const [checked_Items, setChecked_Items] = useState({});
-  const getAccessType = async () => {
-        await axios
-            .post(`${BACKEND_API_URL}/api/get-access-type`,
-                { role_id: 1 }, {
-                headers: { "auth-token": authInfo.token },
-            })
-            .then((res) => {
-                const data = res.data;
-                const initialData = data.map(item => ({
-                    value: item.access,
-                    access_type: item.access_type
-                }));
-                const initialSelectedRoles = {};
-                const initialCheckedItem = {};
-                console.log("initialData", initialData);
-                initialData.forEach(item => {
-                    initialCheckedItem[item.value] = true;
-                    initialSelectedRoles[item.value] = item.access_type;
-                })
-                setIntialTab(initialData)
-                setSelectedRoles(initialSelectedRoles)
-                setChecked_Items(initialCheckedItem)
-                console.log('res acess', res.data);
-            });
-    };
-   const handleCheckBoxChange = (itemValue) => {
+router.post("/api/save-role-access", async (req, res) => {
+  const { role_id, institution_id, data } = req.body;
+  if (!role_id || !institution_id || !Array.isArray(data)) {
+    return res.status(400).json({ message: "Invalid request data" });
+  }
 
-        setChecked_Items(prev => ({
-            ...prev,
-            [itemValue]: !prev[itemValue]
-        }));
-     
-    };
 
-    const handleRoleChange = (itemValue, newValue) => {
-        setSelectedRoles(prev => ({
-            ...prev,
-            [itemValue]: newValue
-        }));
-    
-    };
+  console.log('data', data, role_id, institution_id);
 
-    const getOutputArray = () => {
-        return customize_tab
-            .filter(item => AddChecked_Items[item.value])
-            .map(item => ({
-                value: item.value,
-                access: addSelectedRoles[item.value] || 'read',
-                tab: select_tab
-            }));
-    };
+  try {
+    // Iterate over the data array to insert or update each record
+    for (item of data) {
+      let obj = {
+        role_id: role_id,
+        institution_id: institution_id,
+        access: item.value,
+        access_type: item.access,
+        tab: item.tab
+      }
+      let [existErr, exist] = await _p(
+        db.countRows(
+          `select * from tbl_role_access
+          where role_id =? and institution_id=? and access =? `,
+          [role_id, institution_id, obj.access]
+        )
+      ).then((res) => {
+        console.log('res', res);
+        return res
+      });
 
-    const handleCustomSettingChange = () => {
-        const data = getOutputArray()
-
-        console.log("data", data);
-
-        select_tab_set("")
-        customize_data_array_set(prevState => [...prevState, data])
-        // const array = customize_data_array.flat();
-        const array = customize_data_array.flat();
-        console.log("customize data array", array);
-        const map = new Map();
-
-        array.forEach(item => {
-            const key = JSON.stringify(item);
-            if (!map.has(key)) {
-                map.set(key, item);
-            }
+      if (exist > 0) {
+        console.log("exit works");
+        // delete obj.access;
+        // delete obj.institution_id;
+        // delete obj.tab;
+        // delete obj.role_id;
+        let [updateErr, update] = await _p(
+          db.query(
+            `update tbl_role_access 
+            set access_type =?
+            where role_id =? and institution_id=?`,
+            [obj.access_type,obj.role_id,obj.institution_id]
+           )
+        ).then((res) => {
+          return res;
         });
-        console.log("array", Array.from(map.values()));
-        user_customize_modal_set(false)
+        console.log('save', update);
+      }
+      let [saveErr, save] = await _p(
+        db.insert("tbl_role_access", obj)
+      ).then((res) => {
+        return res;
+      });
+      console.log('save', save);
+
+      if (saveErr && !save) {
+        next(saveErr);
+      } else {
+        res.json({
+          error: false,
+          msg: `Role created successfully.`,
+        });
+      }
     }
-  <Grid item xs={12} sm={12}>
-                            {customize_tab.map((item, index) => (
-                                <div style={{ display: 'flex', gap: "0.5rem", justifyContent: "space-between" }} key={index}>
-                                    <div style={{ display: "flex" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={!!checked_Items[item.value]}
-                                            onChange={() => handleCheckBoxChange(item.value)
-                                            }
-                                        />
-                                        <label className="form-label">
-                                            {" "}
-                                            {item.label}
 
-                                        </label>
-                                    </div>
-                                    {/* {checked_Items[item.value] && ( */}
-                                    <div style={{ width: '5rem' }}>
-                                        <Select
-                                            className="crm-dropdown"
-                                            style={{ width: '100%' }}
-                                            value={selectedRoles[item.value] || "read"}
-                                            onChange={(value) => handleRoleChange(item.value, value)}
-                                            options={roleAccessOptions} />
-                                    </div>
-                                    {/* )} */}
-
-                                </div>
-                            ))}
-
-                        </Grid>
+  } catch (error) {
+    console.error("Error saving role access:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
