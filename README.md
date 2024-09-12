@@ -1,60 +1,48 @@
-router.post("/api/save-role-access", async (req, res) => {
-  const { role_id, institution_id, data } = req.body;
-  if (!role_id || !institution_id || !Array.isArray(data)) {
-    return res.status(400).json({ message: "Invalid request data" });
-  }
+   const handleCheckBoxChange = (itemValue) => {
 
+        setChecked_Items(prev => ({
+            ...prev,
+            [itemValue]: !prev[itemValue]
+        }));
+     
+    };
 
-  console.log('data', data, role_id, institution_id);
+    const handleRoleChange = (itemValue, newValue) => {
+        setSelectedRoles(prev => ({
+            ...prev,
+            [itemValue]: newValue
+        }));
+    
+    };
 
-  try {
-    // Iterate over the data array to insert or update each record
-    for (item of data) {
-      let obj = {
-        role_id: role_id,
-        institution_id: institution_id,
-        access: item.value,
-        access_type: item.access,
-        tab: item.tab
-      }
-      let [existErr, exist] = await _p(
-        db.countRows(
-          `select * from tbl_role_access
-          where role_id =? and institution_id=? and access =? `,
-          [role_id, institution_id, obj.access]
-        )
-      ).then((res) => {
-        console.log('res', res);
-        return res
-      });
+    const getOutputArray = () => {
+        return customize_tab
+            .filter(item => AddChecked_Items[item.value])
+            .map(item => ({
+                value: item.value,
+                access: addSelectedRoles[item.value] || 'read',
+                tab: select_tab
+            }));
+    };
 
-      if (exist > 0) {
-        let [saveErr, save] = await _p(
-          db.update("tbl_role_access", obj, { role_id })
-        ).then((res) => {
-          return res;
+    const handleCustomSettingChange = () => {
+        const data = getOutputArray()
+
+        console.log("data", data);
+
+        select_tab_set("")
+        customize_data_array_set(prevState => [...prevState, data])
+        // const array = customize_data_array.flat();
+        const array = customize_data_array.flat();
+        console.log("customize data array", array);
+        const map = new Map();
+
+        array.forEach(item => {
+            const key = JSON.stringify(item);
+            if (!map.has(key)) {
+                map.set(key, item);
+            }
         });
-        console.log('save', save);
-      }
-      let [saveErr, save] = await _p(
-        db.insert("tbl_role_access", obj)
-      ).then((res) => {
-        return res;
-      });
-      console.log('save', save);
-
-      if (saveErr && !save) {
-        next(saveErr);
-      } else {
-        res.json({
-          error: false,
-          msg: `Role created successfully.`,
-        });
-      }
+        console.log("array", Array.from(map.values()));
+        user_customize_modal_set(false)
     }
-
-  } catch (error) {
-    console.error("Error saving role access:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-});
