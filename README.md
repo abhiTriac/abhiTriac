@@ -1,28 +1,14 @@
-<Menu
-    style={{ width: 200, backgroundColor: "#1F263E", color: "#FFFFFF" }}
-    defaultSelectedKeys={["Dashboard"]}
-    mode="inline"
-  >
-    {filteredMenuData.map(menu =>
-      menu.children ? (
-        <Menu.SubMenu
-          key={menu.key}
-          title={menu.label}
-          icon={menu.icon}
-        >
-          {menu.children.map(child => (
-            <Menu.Item key={child.key} icon={getChildIcon(child.key)}>
-              <Link to={child.link}>{child.label}</Link>
-            </Menu.Item>
-          ))}
-        </Menu.SubMenu>
-      ) : (
-        <Menu.Item key={menu.key} icon={menu.icon}>
-          <Link to={menu.link}>{menu.label}</Link>
-        </Menu.Item>
-      )
-    )}
-    <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', paddingTop: '43%' }}>
-      <img src={logoIcon} alt="logo" style={{ width: '118px' }} />
-    </div>
-  </Menu>
+const filteredMenuData = menuData
+  .filter(menuItem => tabs.some(tab => tab.tab === menuItem.key)) // Filter top-level menu items
+  .map(menuItem => {
+    if (menuItem.children) {
+      // Filter children based on accessChecker
+      const filteredChildren = menuItem.children.filter(child => accessChecker(child.key));
+      return {
+        ...menuItem,
+        children: filteredChildren,
+      };
+    }
+    return menuItem;
+  })
+  .filter(item => item.children.length > 0 || !item.children); // Remove items with no children if they have children
