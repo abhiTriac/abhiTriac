@@ -1,18 +1,26 @@
-exist:  0
-Executing query:  INSERT INTO tbl_items (item_name, item_code, item_barcode, is_serial, is_service, group_id, category_id, model_id, origin_id, unit_id, min_sale_qty, min_sale_rate, purchase_rate, sale_rate, wholesaler_rate, retailer_rate, corporate_rate, distributor_rate, discount_per, tax_per, opening_rate, opening_qty, narration, photo, create_by, branch_ids) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-With values:  [
-  'pro', 'PO003', '',  'no',
-  'no',  '0',     '0', '0',
-  '0',   '1',     '0', '0',
-  '0',   '1',     '0', '0',
-  '0',   '0',     '0', '0',
-  '0',   '0',     '0', '0',
-  '0',   '0',     '',  '',
-  1,     1
-]
-Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' at line 1
-    at PromisePool.query (C:\Users\abhijith\Projects\fortherp\api\node_modules\mysql2\promise.js:356:22)
-    at Transaction.create (C:\Users\abhijith\Projects\fortherp\api\src\utils\TranDB.js:66:38)
-    at C:\Users\abhijith\Projects\fortherp\api\src\controlers\administration.js:4709:36
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    
+async create(tableName, data, transaction) {
+    // Filter out undefined, null, or empty string values if necessary
+    const validData = Object.fromEntries(
+        Object.entries(data).filter(([_, value]) => value !== undefined && value !== null)
+    );
+
+    // Ensure there are no empty values if your schema does not allow them
+    const columns = Object.keys(validData).join(', ');
+    const placeholders = Object.keys(validData).map(() => '?').join(', ');
+
+    let query = `INSERT INTO ${tableName} (${columns}) VALUES (${placeholders})`;
+
+    const values = Object.values(validData);
+
+    console.debug("Executing query: ", query);
+    console.debug("With values: ", values);
+
+    // Execute the query
+    const [result] = await this.pool.query(query, {
+        replacements: values,
+        type: QueryTypes.INSERT,
+        transaction: transaction,
+    });
+
+    return result; // Return the result of the insert operation
+}
