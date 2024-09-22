@@ -1,27 +1,27 @@
- let [rolesErr, roles] = await _p(
-            db
-              .query(
-                `SELECT * FROM tbl_user_role WHERE user_id=? `,
-                [user_id]
-              )
-              .then((res) => {
-                return res;
-              })
-          );
-          console.log('roles: ', roles);
-          const rolesExtracted = roles.map(userRole => userRole.role_id);
-          const rolesString = rolesExtracted.join(',');
-          console.log('rolesString: ', rolesString);
-
-          const query = `SELECT * FROM tbl_role_access WHERE role_id IN (${rolesString})`;
-          console.log('query: ', query);
-
-          let [accessListErr, accessList] = await _p(
-            db
-              .query(query,
-                [rolesString]
-              )
-              .then((res) => {
-                return res;
-              })
-          );
+ <AutoComplete
+                  style={{ width: "100%" }}
+                  options={items.map((item) => ({
+                    value: item.display_text,
+                    label: item.display_text,
+                    obj: item,
+                  }))}
+                  onChange={handleChangeSelectItem}
+                  value={selectedItem?.display_text}
+                >
+                  <Input
+                    ref={item_ref}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (items.length == 0 && item_name) {
+                          plus_icon_show_set(true);
+                        } else {
+                          item_qty_ref.current.focus();
+                        }
+                      }
+                    }}
+                    onChange={handleOnChangeSelectItem}
+                    // onChange={(e) => item_name_set(e.target.value)}
+                    placeholder="Search Item"
+                  />
+                </AutoComplete>
+                
