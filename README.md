@@ -1,3 +1,21 @@
+  const getItems = async () => {
+    await axios
+      .post(
+        `${BACKEND_API_URL}/api/get-items-by-search`,
+        {
+          query: item_name.trim(),
+          search: true,
+          partyType:
+            selectedCustomer == null
+              ? "sale_rate"
+              : selectedCustomer.party_type,
+        },
+        { headers: { "auth-token": authInfo.token } }
+      )
+      .then((res) => {
+        itemsSet(res.data);
+      });
+  };
  <AutoComplete
                   style={{ width: "100%" }}
                   options={items.map((item) => ({
