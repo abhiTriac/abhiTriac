@@ -1,45 +1,19 @@
-  const getItems = async () => {
-    await axios
-      .post(
-        `${BACKEND_API_URL}/api/get-items-by-search`,
-        {
-          query: item_name.trim(),
-          search: true,
-          partyType:
-            selectedCustomer == null
-              ? "sale_rate"
-              : selectedCustomer.party_type,
-        },
-        { headers: { "auth-token": authInfo.token } }
-      )
-      .then((res) => {
-        itemsSet(res.data);
-      });
+  const handleChangeSelectItem = (value, option) => {
+    if (item_name && items.length) {
+    }
+    selectedItemSet(option.props.obj);
+    selectedUnitSet(null);
+    if (option.props.obj != null) {
+      item_discount_per_set(option.props.obj.discount_per);
+      item_tax_per_set(option.props.obj.tax_per);
+      conversion_set(option.props.obj.conversion);
+      per_conversion_set(option.props.obj.units[0].conversion);
+      item_rate_set(
+        option.props.obj.item_rate === 0 ? "" : option.props.obj.item_rate
+      );
+    } else {
+      item_rate_set("");
+    }
+    item_qty_set(0);
+    retail_qty_set(0);
   };
- <AutoComplete
-                  style={{ width: "100%" }}
-                  options={items.map((item) => ({
-                    value: item.display_text,
-                    label: item.display_text,
-                    obj: item,
-                  }))}
-                  onChange={handleChangeSelectItem}
-                  value={selectedItem?.display_text}
-                >
-                  <Input
-                    ref={item_ref}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        if (items.length == 0 && item_name) {
-                          plus_icon_show_set(true);
-                        } else {
-                          item_qty_ref.current.focus();
-                        }
-                      }
-                    }}
-                    onChange={handleOnChangeSelectItem}
-                    // onChange={(e) => item_name_set(e.target.value)}
-                    placeholder="Search Item"
-                  />
-                </AutoComplete>
-                
