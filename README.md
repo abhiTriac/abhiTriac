@@ -46,3 +46,6 @@
                       variant="outlined"
                     />
                   </AutoComplete>
+ TypeError: Cannot read properties of undefined (reading 'props')
+    at filterOption (supplier_entry.js:705:1)
+    
