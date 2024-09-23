@@ -1,4 +1,4 @@
-    <AutoComplete
+          <AutoComplete
                     style={{ width: "100%" }}
                     options={[
                       {
@@ -10,6 +10,9 @@
                       ...locations.map((location) => ({
                         value: location.location_name,
                       }))]}
+                    classes={{
+                      option: classes.option,
+                    }}
                     filterOption={(inputValue, option) => {
                       if (option.value === "AddNew") {
                         return true
@@ -21,7 +24,16 @@
                       return textContent.toUpperCase().includes(inputValue.toUpperCase());
                     }}
                     value={selectedLocation?.location_name}
-                    onChange={locationChange}
+                    onChange={(value) => {
+                      if (value === "AddNew") {
+                        history.push('/purchase/supplier-entry');
+                        return;
+                      }
+                      const selectedObj = locations.find(
+                        (location) => location.location_name === value
+                      );
+                      selectedLocationSet(selectedObj);
+                    }}
                   >
                     <Input
                       ref={location_ref}
@@ -31,5 +43,6 @@
                         }
                       }}
                       placeholder="Location/ Area"
+                      variant="outlined"
                     />
                   </AutoComplete>
