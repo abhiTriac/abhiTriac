@@ -1,0 +1,84 @@
+-- DB updated on 26-08-2024 21:14 IST
+
+update tbl_users
+set
+    user_access = '[\"sales_entry\",\"pos_entry\",\"customer_entry\",\"sales_record\",\"sales_voucher\",\"sales_return_voucher\",\"sales_return\",\"product_replace\",\"sales_return_record\",\"product_replace_record\",\"sales_order_entry\",\"purchase_order_entry\",\"purchase_order_voucher\",\"sales_order_voucher\",\"sales_order_record\",\"purchase_order_record\",\"service_entry\",\"service_expense_entry\",\"service_record\",\"service_expense_record\",\"service_voucher\",\"service_expense_voucher\",\"purchase_entry\",\"supplier_entry\",\"purchase_record\",\"purchase_voucher\",\"purchase_return_voucher\",\"purchase_return\",\"purchase_return_record\",\"salary_payment\",\"employee_entry\",\"department_entry\",\"designation_entry\",\"attendance_entry\",\"monthly_salary_report\",\"creditor_payment\",\"debtor_receipt\",\"expense_entry\",\"expense_recognition_entry\",\"income_entry\",\"advance_transaction_entry\",\"branch_tran\",\"contra_entry\",\"journal_entry\",\"account_entry\",\"location_entry\",\"item_stock_report\",\"item_ledger\",\"transfer_entry\",\"item_adjustment_entry\",\"transfer_record\",\"transfer_pending_record\",\"transfer_receive_record\",\"adjustment_record\",\"production_entry\",\"production_voucher\",\"production_record\",\"crm_customer_entry\",\"pending_customer_list\",\"approved_customer_list\",\"rejected_customer_list\",\"employee_wise_customer_list\",\"quotation_entry\",\"quotation_record\",\"balance_sheet\",\"trial_balance\",\"profit_loss\",\"item_wise_profit_loss\",\"cash_bank_balance\",\"loan_balance\",\"indirect_expense_balance\",\"indirect_income_balance\",\"fixed_asset_balance\",\"capital_balance\",\"debtor_balance\",\"branch_balance\",\"creditor_balance\",\"fixed_asset_ledger\",\"loan_ledger\",\"indirect_expense_ledger\",\"indirect_income_ledger\",\"cash_bank_ledger\",\"capital_ledger\",\"debtor_ledger\",\"creditor_ledger\",\"sales_ledger\",\"purchase_ledger\",\"service_expense_ledger\",\"service_ledger\",\"sales_return_ledger\",\"purchase_return_ledger\",\"tax_ledger\",\"direct_expense_ledger\",\"debtor_receipt_record\",\"creditor_payment_record\",\"expense_record\",\"expense_recognition_record\",\"income_record\",\"journal_record\",\"contra_record\",\"salary_report\",\"direct_expense_balance\",\"direct_income_balance\",\"direct_income_ledger\",\"branch_tran_pen_list\",\"branch_tran_rcv_list\",\"branch_tran_transfer_list\",\"branch_ledger\",\"daily_ledger\",\"collection_record\",\"advance_tran_record\",\"advance_debtor_balance\",\"advance_creditor_balance\",\"item_entry\",\"item_category\",\"group_entry\",\"model_manage\",\"origin_manage\",\"item_unit\",\"user_entry\",\"warehouse_entry\",\"branch_entry\",\"company_profile\",\"sms_sender\",\"attendance_overview\",\"user_role_manage\",\"patient_overview\",\"doctor_overview\",\"bank_transactions\"]'
+where
+    user_id = 1;
+
+alter table tbl_role_access
+add column tab varchar(20);
+
+update tbl_role_access 
+set tab = 'sales'
+where access in ('sales_entry','customer_entry','sales_return','product_replace','sales_voucher','sales_return_voucher','sales_record','sales_return_record','product_replace_record','');
+
+update tbl_role_access 
+set tab = 'quotation'
+where access in ('quotation_entry','quotation_record');
+
+update tbl_role_access 
+set tab = 'service'
+where access in ('service_entry','service_expense_entry','service_voucher','service_expense_voucher','service_record','service_expense_record');
+
+  
+update tbl_role_access 
+set tab = 'order'
+where access in ('sales_order_entry','purchase_order_entry','sales_order_voucher','purchase_order_voucher','purchase_order_record','sales_order_record');
+
+update tbl_role_access 
+set tab = 'purchase'
+where access in ('purchase_entry','supplier_entry','purchase_return','purchase_voucher','purchase_return_voucher','purchase_record','purchase_return_record');
+
+update tbl_role_access 
+set tab = 'manufacturing'
+where access in ('production_entry','production_voucher','production_record');
+
+
+update tbl_role_access 
+set tab = 'inventory'
+where access in ('item_stock_report','item_ledger','transfer_entry','item_adjustment_entry','adjustment_record','transfer_record','transfer_pending_record','transfer_receive_record','item_entry','item_unit','group_entry','item_category','model_manage','origin_manage');
+
+update tbl_role_access 
+set tab = 'accounts'
+where access in ('debtor_receipt','creditor_payment','expense_entry','expense_recognition_entry','income_entry','contra_entry','advance_transaction_entry','journal_entry','branch_tran','account_entry','location_entry','bank_transactions');
+
+update tbl_role_access 
+set tab = 'hrpayroll'
+where access in ('salary_payment','attendance_entry','attendance_overview','employee_entry','department_entry','designation_entry');
+
+update tbl_role_access 
+set tab = 'reports'
+where access in ('debtor_balance','creditor_balance','debtor_ledger','creditor_ledger','collection_record','debtor_receipt_record','cash_bank_balance','cash_bank_ledger','indirect_expense_balance','expense_record','daily_ledger','item_stock_report','profit_loss','item_wise_profit_loss','bill_wise_profit_loss','emi_due_list','loan_balance','balance_sheet','trial_balance','branch_tran_pen_list','branch_tran_rcv_list','branch_tran_transfer_list','advance_debtor_balance','indirect_income_balance','fixed_asset_balance','capital_balance','branch_balance','indirect_expense_ledger','fixed_asset_ledger','loan_ledger','indirect_income_ledger','capital_ledger','branch_ledger','sales_ledger','purchase_ledger','service_expense_ledger','service_ledger','sales_return_ledger','purchase_return_ledger','tax_ledger','creditor_payment_record','expense_recognition_record','income_record','journal_record','contra_record','sales_record','sales_return_record','purchase_record','purchase_return_record','production_record','salary_report','direct_expense_balance','direct_expense_ledger','direct_income_balance','direct_income_ledger','salary_report','monthly_salary_report');
+
+update tbl_role_access 
+set tab = 'pos'
+where access = 'pos_entry'; 
+
+update tbl_role_access 
+set tab = 'crm'
+where access in ('crm_customer_entry','pending_customer_list','approved_customer_list','rejected_customer_list','employee_wise_customer_list');
+
+
+update tbl_role_access 
+set tab = 'settings'
+where access in ('warehouse_entry','branch_entry','sms_sender','user_entry','company_profile');
+
+-- DB updated on 2-09-2024 21:14 IST
+ALTER table tbl_institution_profile
+add column department_name varchar(20),
+add column street_address varchar(20),
+add column po_box varchar(10),
+add column phone_no varchar(20),
+add column company_email varchar(30),
+add column company_type varchar(20),
+add column ein_ssn varchar(10),
+add column tax_form varchar(20),
+add column web_site varchar(20),
+add column city varchar(15);
+
+ALTER table tbl_role_access
+add constraint unique_instituttion_access_role
+unique (institution_id ,access,role_id,access_type);
+
+alter table tbl_users modify user_role varchar (30);
