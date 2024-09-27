@@ -1,22 +1,6 @@
-   {filteredMenuData.map(menu =>
-              menu.children ? (
-                <Menu.SubMenu
-                  key={menu.key}
-                  title={menu.label}
-                  icon={menu.icon}
-                >
-                  {menu.children.map(child => (
-                    <Menu.Item key={child.key} icon={getChildIcon(child.key)}>
-                      <Link to={child.link}>{child.label}</Link>
-                    </Menu.Item>
-                  ))}
-                </Menu.SubMenu>
-              ) : (
-                <Menu.Item key={menu.key} icon={menu.icon}>
-                  <Link to={menu.link}>{menu.label}</Link>
-                </Menu.Item>
-              )
-            )}
-Encountered two children with the same key, `sales_return`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
-    in SubMenu (created by SubMenu)
-    in SubMenu (at Header.js:1443)
+   <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', paddingTop: '43%' }}>
+              <img src={logoIcon} alt="logo" style={{ width: '118px' }} />
+            </div>
+ React does not recognize the `eventKey` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `eventkey` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    in div (at Header.js:1462)
+    in ul (created by Overflow)
