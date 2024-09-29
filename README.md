@@ -1,191 +1,72 @@
-INSERT INTO
-    `tbl_role_access`
-VALUES (
-        176,
-        5,
-        'sales_entry',
-        'WRITE',
-        0,
-        'sales'
-    );
-    
-INSERT INTO
-    `tbl_role_access`
-VALUES (
-        177,
-        5,
-        'pos_entry',
-        'WRITE',
-        0,
-        'pos'
-    );
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        178,
-        5,
-        'customer_entry',
-        'WRITE',
-		 0,
-        'sales'
-    );
-    
-        INSERT INTO
-    `tbl_role_access`
-VALUES (
-        179,
-        5,
-        'sales_return',
-        'WRITE',
-        0,
-        'sales'
-    );
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        180,
-        5,
-        'product_replace',
-        'WRITE',
-        0,
-        'sales'
-    );
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        181,
-        5,
-        'sales_voucher',
-        'WRITE',
-        0,
-        'sales'
-    );
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        182,
-        5,
-        'sales_return_voucher',
-        'WRITE',
-        0,
-        'sales'
-    );
-    
+INSERT INTO `tbl_role_access` VALUES (251, 8, 'sales_entry', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (252, 8, 'pos_entry', 'WRITE', 1, 'pos');
+INSERT INTO `tbl_role_access` VALUES (253, 8, 'customer_entry', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (254, 8, 'sales_return', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (255, 8, 'product_replace', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (256, 8, 'sales_voucher', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (257, 8, 'sales_return_voucher', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (258, 8, 'sales_record', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (259, 8, 'sales_return_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (260, 8, 'product_replace_record', 'WRITE', 1, 'sales');
+INSERT INTO `tbl_role_access` VALUES (261, 8, 'purchase_entry', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (262, 8, 'supplier_entry', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (263, 8, 'purchase_return', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (264, 8, 'purchase_voucher', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (265, 8, 'purchase_return_voucher', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (266, 8, 'purchase_record', 'WRITE', 1, 'purchase');
+INSERT INTO `tbl_role_access` VALUES (267, 8, 'purchase_return_record', 'WRITE', 1, 'purchase');
 
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        183,
-        5,
-        'sales_record',
-        'WRITE',
-        0,
-        'sales'
-    );
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        184,
-        5,
-        'sales_return_record',
-        'WRITE',
-        0,
-        'reports'
-    );
-    
-    INSERT INTO
-    `tbl_role_access`
-VALUES (
-        185,
-        5,
-        'product_replace_record',
-        'WRITE',
-        0,
-        'sales'
-    );
-INSERT INTO `tbl_role_access` VALUES (227, 7, 'purchase_entry', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (228, 7, 'supplier_entry', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (229, 7, 'purchase_return', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'purchase_voucher', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'purchase_return_voucher', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'purchase_record', 'WRITE', 1, 'purchase');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'purchase_return_record', 'WRITE', 1, 'purchase');
-
-INSERT INTO `tbl_role_access` VALUES (227, 7, 'debtor_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (228, 7, 'creditor_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (229, 7, 'debtor_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'creditor_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'collection_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'debtor_receipt_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'cash_bank_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (227, 7, 'cash_bank_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (228, 7, 'indirect_expense_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (229, 7, 'expense_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'daily_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'item_stock_report', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'profit_loss', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'item_wise_profit_loss', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (227, 7, 'bill_wise_profit_loss', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (228, 7, 'emi_due_list', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (229, 7, 'loan_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'balance_sheet', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'trial_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'branch_tran_pen_list', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'branch_tran_rcv_list', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'branch_tran_transfer_list', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'advance_debtor_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'advance_creditor_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'indirect_income_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'fixed_asset_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'capital_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'branch_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'indirect_expense_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'fixed_asset_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'loan_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'indirect_income_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'capital_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'branch_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'sales_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'purchase_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'service_expense_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'service_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'sales_return_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'purchase_return_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'tax_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'creditor_payment_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'expense_recognition_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'fixed_asset_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'income_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'journal_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'contra_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'sales_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'sales_return_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'purchase_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'purchase_return_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'production_record', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'salary_report', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'direct_expense_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'direct_expense_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'direct_income_balance', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'direct_income_ledger', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'salary_report', 'WRITE', 1, 'reports');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'monthly_salary_report', 'WRITE', 1, 'reports');
-
-
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'debtor_receipt', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'creditor_payment', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'expense_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'expense_recognition_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'income_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'contra_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'advance_transaction_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'journal_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (233, 7, 'branch_tran', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (230, 7, 'account_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (231, 7, 'location_entry', 'WRITE', 1, 'accounts');
-INSERT INTO `tbl_role_access` VALUES (232, 7, 'bank_transactions', 'WRITE', 1, 'accounts');
+INSERT INTO `tbl_role_access` VALUES (268, 8, 'debtor_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (269, 8, 'creditor_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (270, 8, 'debtor_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (271, 8, 'creditor_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (272, 8, 'collection_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (273, 8, 'debtor_receipt_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (274, 8, 'cash_bank_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (275, 8, 'cash_bank_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (276, 8, 'indirect_expense_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (277, 8, 'expense_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (278, 8, 'daily_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (279, 8, 'item_stock_report', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (280, 8, 'profit_loss', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (281, 8, 'item_wise_profit_loss', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (282, 8, 'bill_wise_profit_loss', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (283, 8, 'emi_due_list', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (284, 8, 'loan_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (285, 8, 'balance_sheet', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (286, 8, 'trial_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (287, 8, 'branch_tran_pen_list', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (288, 8, 'branch_tran_rcv_list', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (289, 8, 'branch_tran_transfer_list', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (290, 8, 'advance_debtor_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (291, 8, 'advance_creditor_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (292, 8, 'indirect_income_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (293, 8, 'fixed_asset_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (294, 8, 'capital_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (295, 8, 'branch_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (296, 8, 'indirect_expense_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (297, 8, 'fixed_asset_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (298, 8, 'loan_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (299, 8, 'indirect_income_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (300, 8, 'capital_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (301, 8, 'branch_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (302, 8, 'sales_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (303, 8, 'purchase_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (304, 8, 'service_expense_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (305, 8, 'service_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (306, 8, 'sales_return_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (307, 8, 'purchase_return_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (308, 8, 'tax_ledger', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (309, 8, 'creditor_payment_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (310, 8, 'expense_recognition_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (311, 8, 'fixed_asset_balance', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (312, 8, 'income_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (313, 8, 'journal_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (314, 8, 'contra_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (315, 8, 'sales_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (316, 8, 'sales_return_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (317, 8, 'purchase_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (318, 8, 'purchase_return_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (319, 8, 'production_record', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (320, 8, 'salary_report', 'WRITE', 1, 'reports');
+INSERT INTO `tbl_role_access` VALUES (321, 8, 'direct_expense_balance', 'WRITE', 1, 'reports');
