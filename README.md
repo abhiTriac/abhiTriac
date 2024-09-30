@@ -1,8 +1,33 @@
-INSERT INTO `tbl_role_access` VALUES (317, 9, 'salary_payment', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (318, 9, 'attendance_entry', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (319, 9, 'attendance_overview', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (320, 9, 'employee_entry', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (321, 9, 'department_entry', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (322, 9, 'designation_entry', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (323, 9, 'salary_report', 'WRITE', 1, 'hrpayroll');
-INSERT INTO `tbl_role_access` VALUES (324, 9, 'monthly_salary_report', 'WRITE', 1, 'hrpayroll');
+  <AutoComplete
+                            style={{ width: "100%" }}
+                            options={[
+                                {
+                                    value: "AddNew",
+                                    label: (<span className="addNewDropdown">
+                                        <img style={{ height: '0.8rem' }} src={createNew} />Add New</span>),
+                                    obj: null
+                                },
+                                ...items.map((item) => ({
+                                    value: item.display_text,
+                                    label: item.display_text,
+                                    obj: item,
+                                })),
+                            ]}
+                            onChange={handleChangeSelectTag}
+                            value={selected_tag_group?.display_text}
+                            filterOption={(inputValue, option) => {
+                                if (option.value === "AddNew") {
+                                    return true
+                                }
+                                if (typeof option.label === 'string') {
+                                    return option.label.toUpperCase().includes(inputValue.toUpperCase());
+                                }
+                                const textContent = option.label.props.children[1]; // Assuming text is the second child
+                                return textContent.toUpperCase().includes(inputValue.toUpperCase());
+                            }}
+                        >
+                            <Input
+                                // onChange={}
+                                placeholder="Search Item"
+                            />
+                        </AutoComplete>
