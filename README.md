@@ -1,24 +1,48 @@
+  const columns = [
+        { name: "id", options: { display: "excluded" } },
+        {
+            name: "NO.",
+            options: {
+                filter: false,
+                sort: false,
+                customBodyRender: (value, tableMeta) => {
+                    return <p>{parseFloat(tableMeta.rowIndex) + 1}</p>;
+                },
+            },
+            headerStyle: {
+                textAlign: "left",
+            },
+        },
+        {
+            name: "pro_name",
+            label: "Company",
+            options: { filter: true, sort: true },
+        },
+        {
+            name: "total_branch_count",
+            label: "Branch Count",
+            options: { filter: true, sort: true },
+        },
+        {
+            name: "used_branch",
+            label: "Used Branch",
+            options: { filter: true, sort: true },
+        },
+        {
+            name: "total_user_count",
+            label: "Total Users",
+            options: { filter: true, sort: true },
+        },
+        {
+            name: "branch_count",
+            label: "Used Users",
+            options: { filter: true, sort: true },
+        },
+        {
+            name: "subscription_expiry",
+            label: "Plan Expiry",
+            options: { filter: true, sort: true },
+        },
 
-  useEffect(() => {
-    const updateDateTime = () => {
-      const date = new Date();
 
-      const day = date.getDate().toString().padStart(2, "0");
-      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
-      const year = date.getFullYear();
-
-      let hours = date.getHours();
-      const minutes = date.getMinutes().toString().padStart(2, "0");
-      const ampm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      const strTime = `${hours.toString().padStart(2, "0")}:${minutes} ${ampm}`;
-
-      const formattedDateTime = `${day}-${month}-${year} ${strTime}`;
-      setDateTime(formattedDateTime);
-    };
-
-    const interval = setInterval(updateDateTime, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+    ];
