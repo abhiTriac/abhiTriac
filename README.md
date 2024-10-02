@@ -1,3 +1,11 @@
+  <MUIDataTable
+                            title={<div className="add-new-mui-table-heading">Company
+                                List</div>}
+                            data={table_data}
+                            columns={columns}
+                            className={classes.tableHeader}
+                            options={options}
+                        />
   const columns = [
         { name: "id", options: { display: "excluded" } },
         {
