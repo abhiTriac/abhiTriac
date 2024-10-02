@@ -14,3 +14,12 @@
               icon: "warning",
             });
           }
+    <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/dashboard" component={Dashboard} />
+
+                  <Route exact path="/crm" component={ModuleDetail} />
+
+                  <Route exact path="/settings" component={ModuleDetail} />
+                    <Route path="*">
+                    <Redirect to="/" replace />
+                  </Route>
