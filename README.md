@@ -16,6 +16,8 @@ sign.js
             });
           }
           app.js
+           <Router>
+      {authInfo != null ? (
     <Route exact path="/" component={Dashboard} />
                   <Route exact path="/dashboard" component={Dashboard} />
 
@@ -25,3 +27,16 @@ sign.js
                     <Route path="*">
                     <Redirect to="/" replace />
                   </Route>
+                   ) : (
+        <>
+          <Suspense
+            fallback={<b style={{ textAlign: "center" }}>Loading...</b>}
+          >
+            <Route exact path="/" component={SignIn} />
+            <Route path="*">
+              <Redirect to="/" replace />
+            </Route>
+          </Suspense>
+        </> )
+      }
+    </Router >
